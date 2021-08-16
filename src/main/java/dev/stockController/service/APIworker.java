@@ -28,10 +28,20 @@ public class APIworker {
 
         StringBuilder allStocks = new StringBuilder();
         StocksList stocksList = response.getBody();
-        for (Instruments stockInfo : stocksList.payload.instruments) {
-            allStocks.append(stockInfo.name);
+        List<String> sortedStockName = sortStocks(stocksList);
+        for (String stockName : sortedStockName) {
+            allStocks.append(stockName);
             allStocks.append("\n");
         }
         return new String(allStocks);
+    }
+
+    private List<String> sortStocks(StocksList stocksList){
+        List<String> stocksName = new ArrayList<>();
+        for(Instruments stockInfo : stocksList.payload.instruments){
+            stocksName.add(stockInfo.name);
+        }
+        Collections.sort(stocksName);
+        return stocksName;
     }
 }
