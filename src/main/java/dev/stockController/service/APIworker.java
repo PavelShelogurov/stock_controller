@@ -16,8 +16,6 @@ public class APIworker {
     private String urlStocksList;
     @Value("${tinkoff.openapi.production.token}")
     private String tokenProduction;
-    @Value("${limit.length.text.message}")
-    private int maxTextMessageLength;
 
     public String findAllStocks() {
         RestTemplate restTemplate = new RestTemplate();
@@ -34,6 +32,6 @@ public class APIworker {
             allStocks.append(stockInfo.name);
             allStocks.append("\n");
         }
-        return new String(allStocks).substring(0, maxTextMessageLength);
+        return new String(allStocks);
     }
 }

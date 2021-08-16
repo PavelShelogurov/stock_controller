@@ -8,6 +8,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import java.util.List;
+
 @Service
 public class UpdateHandler {
     @Autowired
@@ -18,7 +20,7 @@ public class UpdateHandler {
     @Value("${error.in.developing}")
     private String inDeveloping;
 
-    public SendMessage processMessage(Update update) {
+    public List<SendMessage> processMessage(Update update) {
 
         Message message = update.getMessage();
         switch (message.getText()) {

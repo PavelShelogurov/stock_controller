@@ -9,6 +9,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.List;
+
 @Component
 public class StockControllerBot extends TelegramLongPollingBot {
     @Value("${bot.token}")
@@ -31,9 +33,11 @@ public class StockControllerBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if(update.hasMessage()) {
-            SendMessage response = updateHandler.processMessage(update);
+            List<SendMessage> response = updateHandler.processMessage(update);
             try {
-                execute(response);
+                for(SendMessage message : response) {
+                    execute(message);
+                }
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
